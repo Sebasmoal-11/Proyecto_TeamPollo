@@ -1,3 +1,4 @@
+import java.nio.channels.Pipe.SourceChannel;
 import java.util.Scanner;
 
 public class Calculadora {
@@ -44,5 +45,98 @@ public class Calculadora {
 
 
     //Se determinan las funciones de los metodos para cada operacion.
+    public void suma() {
+        resultado = valor1 + valor2;
+        System.out.println("El resultado de la suma es: " + resultado + "\n");
+    }
+
+    public void resta() {
+
+        resultado = valor1 - valor2;
+        System.out.println("El resultado de la resta es: " + resultado + "\n");
+
+    }
+
+    public void multiplicacion() {
+        resultado = valor1 * valor2;
+        System.out.println("El resultado de la multiplicación es: " + resultado + "\n");
+    }
+
+    public void division() {
+
+        //Se usa if para evaluar si se puede o no realizar la division ya que no podemos hacerla entre 0.
+        if (valor2 == 0) {
+
+            System.out.println("Error: División por cero no permitida.\n");
+        
+        } else {
+
+            resultado = valor1 / valor2;
+            System.out.println("El resultado de la división es: " + resultado + "\n");
+        
+        }
+    }
+
+    public void salir() {
+
+        continuar = false;
+        System.out.println("Gracias por usar la Calculadora Cuenta Pollos. ¡Hasta luego!");
+
+    }
+
+    public void menu() {
+
+        while (continuar) {
+            
+            cargardatos();
+
+            switch (opc) {
+                case Suma:
+                    suma();
+                    break;
+                
+                case Resta:
+                    resta();
+                    break;
+                    
+                case Multiplicacion:
+                    multiplicacion();
+                    break;
+                    
+                case Division:
+                    division();
+                    break;
+                    
+                case Salir:
+                    salir();
+                    break;
+            
+            default:
+
+                System.out.println("Opción no válida. Por favor, intente nuevamente.\n");
+
+                break;
+
+            }
+        }
+    }
+
     
+    //Se determina el metodo principal
+    public static void main(String[] args) {
+        
+        //Se crea un objeto llamado calculadora a partir de la clase principal calculadora.
+        
+       
+        Calculadora calculadora = new Calculadora();
+        calculadora.menu();
+
+         /*
+        Al los metodos y variables ser private no static no se puede llamar directamente a ellas 
+        ya que no son compartidas entre todas las instancias por lo tanto debemos crear un objeto (calculadora)
+        para poder acceder a ellas.
+        */
+
+    }
+
 }
