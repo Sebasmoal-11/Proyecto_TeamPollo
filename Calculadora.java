@@ -46,19 +46,19 @@ public class Calculadora {
     //Se determinan las funciones de los metodos para cada operacion.
     public void suma() {
         resultado = valor1 + valor2;
-        System.out.println("El resultado de la suma es: " + resultado + "\n");
+        System.out.println("\nEl resultado de la suma es: " + resultado + "\n");
     }
 
     public void resta() {
 
         resultado = valor1 - valor2;
-        System.out.println("El resultado de la resta es: " + resultado + "\n");
+        System.out.println("\nEl resultado de la resta es: " + resultado + "\n");
 
     }
 
     public void multiplicacion() {
         resultado = valor1 * valor2;
-        System.out.println("El resultado de la multiplicación es: " + resultado + "\n");
+        System.out.println("\nEl resultado de la multiplicación es: " + resultado + "\n");
     }
 
     public void division() {
@@ -66,12 +66,12 @@ public class Calculadora {
         //Se usa if para evaluar si se puede o no realizar la division ya que no podemos hacerla entre 0.
         if (valor2 == 0) {
 
-            System.out.println("Error: División por cero no permitida.\n");
+            System.out.println("\nError: División por cero no permitida.\n");
         
         } else {
 
             resultado = valor1 / valor2;
-            System.out.println("El resultado de la división es: " + resultado + "\n");
+            System.out.println("\nEl resultado de la división es: " + resultado + "\n");
         
         }
     }
@@ -79,7 +79,7 @@ public class Calculadora {
     public void salir() {
 
         continuar = false;
-        System.out.println("Gracias por usar la Calculadora Cuenta Pollos. ¡Hasta luego!");
+        System.out.println("\nGracias por usar la Calculadora Cuenta Pollos. ¡Hasta luego!");
 
     }
 
@@ -112,7 +112,7 @@ public class Calculadora {
             
             default:
 
-                System.out.println("Opción no válida. Por favor, intente nuevamente.\n");
+                System.out.println("\n" + "Opción no válida. Por favor, intente nuevamente.\n");
 
                 break;
 
