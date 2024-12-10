@@ -174,8 +174,8 @@ public class Calculadora extends JFrame{
       */
 
      setTitle("CALCULADORA CUENTA POLLOS");
-     setSize(500, 600);
-     setMinimumSize(new Dimension(400, 500));
+     setSize(400, 600);
+     setMinimumSize(new Dimension(300, 500));
      setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
      add(mainPanel); // agrega mainPanel al JFrame
      setVisible(true);
