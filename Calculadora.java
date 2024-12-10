@@ -14,7 +14,7 @@ public class Calculadora extends JFrame{
 
  /* creacion de fuente */
  final private Font maiFont = new Font("Arial", Font.BOLD, 16);
- final private Font maiFont1 = new Font("Arial", Font.BOLD, 20);
+ final private Font maiFont1 = new Font("Arial", Font.BOLD, 40);
 
  public void iniciar() {
 
@@ -173,7 +173,7 @@ public class Calculadora extends JFrame{
       * -------------------------- PROPIEDADES DE LA VENTANA ------------------------
       */
 
-     setTitle("CALCULADORA");
+     setTitle("CALCULADORA CUENTA POLLOS");
      setSize(500, 600);
      setMinimumSize(new Dimension(400, 500));
      setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
