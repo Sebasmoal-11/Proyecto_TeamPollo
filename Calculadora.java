@@ -1,124 +1,186 @@
-import java.util.Scanner;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
 
-public class Calculadora {
+public class Calculadora extends JFrame{
+ /* Creacion de Objetos */
+ JButton[] botones;
+ JTextField tfPantalla;
+ /* // Almacena el número en curso */
+ private StringBuilder entradaActual = new StringBuilder();
+ private float numeroAnterior = 0, resultado;
+ private String operacionActual = "";
+ private float numeroActual = 0f; /* Float.parseFloat(entradaActual.toString()); */
 
-    //Se definen las opciones del menu como constantes para facilitar el manejo de la info
-    //Se evita tambien el uso de numeros falsos, en este caso no hay forma de variar las opciones del menu.
-    //Una vez determinadas como constantes.
-    private static final int Suma = 1;
-    private static final int Resta = 2;
-    private static final int Multiplicacion = 3;
-    private static final int Division = 4;
-    private static final int Salir = 5;
+ /* creacion de fuente */
+ final private Font maiFont = new Font("Arial", Font.BOLD, 16);
+ final private Font maiFont1 = new Font("Arial", Font.BOLD, 20);
 
-    //Se determinan las variables que almacenan valores
-    //Se determina tambien el valor booleano continuar.
-    private float valor1, valor2, resultado;
-    private int opc;
-    private boolean continuar = true;
+ public void iniciar() {
 
-    //Se define el objeto Scanner en una sola linea para todo el codigo.
-    private Scanner leer = new Scanner(System.in);
+     /*-------------------------- Panel de Calcu ---------------------------- */
 
-    //Se define la funcion del metodo para cargar datos.
-    public void cargardatos() {
+     /* Aparicion de los botones num en pantalla */
+     tfPantalla = new JTextField();
+     /* se le pone fuente */
+     tfPantalla.setFont(maiFont1);
+     /* Acomoda el texto automaticamente a la derecha */
+     tfPantalla.setHorizontalAlignment(SwingConstants.RIGHT);
+     /* Parametro para que el user no pueda editar */
+     tfPantalla.setEditable(false);
+     tfPantalla.setPreferredSize(new Dimension(600, 100));
 
-        //Mostrar menu.
-        System.out.println("*****Menu*****\n1. Suma \n2. Resta \n3. Multiplicación \n4. División \n5. Salir");
-        System.out.println("\nDigite una opción: ");
-        opc = leer.nextInt();
+     /*
+      * --------------------------- Panel de Boton --------------------------------
+      */
 
+     JPanel CalcuPanel = new JPanel();
+     /* Espacios del panel: filas, columnas y espaciado */
+     CalcuPanel.setLayout(new GridLayout(5, 4, 2, 2));
 
-        //Si el usuario no desea salir, se piden los valores
-        if (opc != Salir) {
-            
-            System.out.println("Digite el valor 1: ");
-            valor1 = leer.nextFloat();
+     /* Inicializacion de los Botones */
+     String[] nombreBotones = {
 
-            System.out.println("Digite el valor 2: ");
-            valor2 = leer.nextFloat();
+             "C", "", "", "←",
+             "7", "8", "9", "/",
+             "4", "5", "6", "*",
+             "1", "2", "3", "-",
+             ".", "0", "=", "+",
+     };
 
-        }
+     JButton[] botones = new JButton[nombreBotones.length];
 
-    }
+     /* iterar para agregar los botones */
+     for (int i = 0; i < nombreBotones.length; i++) {
 
+         if (nombreBotones[i].isEmpty()) { // Espacios vacíos
+             CalcuPanel.add(new JLabel());
+             continue;
+         }
+         botones[i] = new JButton(nombreBotones[i]);
+         botones[i].setFont(maiFont);
 
-    //Se determinan las funciones de los metodos para cada operacion.
-    public void suma() {
-        resultado = valor1 + valor2;
-        System.out.println("\nEl resultado de la suma es: " + resultado + "\n");
-    }
+         /*
+          * Agregar cada boton al panel
+          * CalcuPanel.add(botones[i]);
+          */
+         botones[i].addActionListener((ActionEvent e) -> {
+             String contenidoBoton = e.getActionCommand();
 
-    public void resta() {
+             if ("0123456789".contains(contenidoBoton)) {
+                 /* Concatena los numeros en la pantalla */
+                 entradaActual.append(contenidoBoton);
+                 /* Muestra en la pantalla */
+                 tfPantalla.setText(entradaActual.toString());
+             } else if ("+-*/".contains(contenidoBoton)) {
+                 if (entradaActual.length() > 0) {
+                     numeroActual = Float.parseFloat(entradaActual.toString());
+                 }
+                 /* Para guardar el numero anterior mente digitado y el operador */
+                 operacionActual = contenidoBoton;
+                 /* convierte el StringBuilder a float */
+                 numeroAnterior = Float.parseFloat(entradaActual.toString());
+                 /* limpia la entrada actual */
+                 entradaActual.setLength(0);
 
-        resultado = valor1 - valor2;
-        System.out.println("\nEl resultado de la resta es: " + resultado + "\n");
+             } else if ("C".equals(contenidoBoton)) {
+                 /* Limpiar pantalla y reiniciar */
+                 entradaActual.setLength(0);
+                 tfPantalla.setText("");
+                 numeroAnterior = 0;
+                 operacionActual = "";
 
-    }
+             } else if ("=".equals(contenidoBoton)) {
+                 if (entradaActual.length() > 0) {
+                     numeroActual = Float.parseFloat(entradaActual.toString());
+                 }
+                 resultado = 0;
 
-    public void multiplicacion() {
-        resultado = valor1 * valor2;
-        System.out.println("\nEl resultado de la multiplicación es: " + resultado + "\n");
-    }
+                 switch (operacionActual) {
 
-    public void division() {
+                     case "+":
+                         resultado = numeroAnterior + numeroActual;
+                         break;
 
-        //Se usa if para evaluar si se puede o no realizar la division ya que no podemos hacerla entre 0.
-        if (valor2 == 0) {
+                     case "-":
+                         resultado = numeroAnterior - numeroActual;
+                         break;
 
-            System.out.println("\nError: División por cero no permitida.\n");
-        
-        } else {
+                     case "*":
+                         resultado = numeroAnterior * numeroActual;
+                         break;
 
-            resultado = valor1 / valor2;
-            System.out.println("\nEl resultado de la división es: " + resultado + "\n");
-        
-        }
-    }
+                     case "/":
 
-    public void salir() {
+                         if (numeroActual != 0) {
+                             resultado = numeroAnterior / numeroActual;
+                         } else {
+                             tfPantalla.setText("Resultado indefinido");
+                             entradaActual.setLength(0);
+                             return;
+                         }
+                         break;
+                 }
 
-        continuar = false;
-        System.out.println("\nGracias por usar la Calculadora Cuenta Pollos. ¡Hasta luego!");
+                 tfPantalla.setText(String.valueOf(resultado));
+                 entradaActual.setLength(0);
+                 /* // Permitir usar el resultado para operaciones futuras */
+                 entradaActual.append(resultado);
 
-    }
+             } else if ("←".equals(contenidoBoton)) {
 
-    public void menu() {
+                 if (entradaActual.length() > 0) {
 
-        while (continuar) {
-            
-            cargardatos();
+                     /* Elmminina el ultimo caracter digitado */
+                     entradaActual.deleteCharAt(entradaActual.length() - 1);
+                     /* Actualizar el visor */
+                     tfPantalla.setText(entradaActual.toString());
+                 }
 
-            switch (opc) {
-                case Suma:
-                    suma();
-                    break;
-                
-                case Resta:
-                    resta();
-                    break;
-                    
-                case Multiplicacion:
-                    multiplicacion();
-                    break;
-                    
-                case Division:
-                    division();
-                    break;
-                    
-                case Salir:
-                    salir();
-                    break;
-            
-            default:
+             } else if(".".equals(contenidoBoton)){
 
-                System.out.println("\n" + "Opción no válida. Por favor, intente nuevamente.\n");
+                 /* Verifica si el numero actial ya contiene un punto */
+                 if (!entradaActual.toString().contains(".")) {
+                     /* se agrega el punto si no esta presente */
+                     entradaActual.append(contenidoBoton);
+                     tfPantalla.setText(entradaActual.toString());
+                 }
+             }
 
-                break;
+         });
 
-            }
-        }
-    }
+         /* Agregar cada boton al panel */
+         CalcuPanel.add(botones[i]);
+     }
+
+     /*
+      * -------------------------------PANEL PRINCIPAL ----------------------------
+      */
+
+     /* panel principal */
+     JPanel mainPanel = new JPanel(new BorderLayout());
+     /* se le asigna un color al fondo */
+     mainPanel.setBackground(new Color(128, 128, 255));
+     /* se le crea un borde vacio */
+     mainPanel.setBorder(BorderFactory.createEmptyBorder());
+
+     /* AGREGAR COMPONENTES EN EL PANEL PRINCIPAL */
+
+     mainPanel.add(tfPantalla, BorderLayout.NORTH);
+     mainPanel.add(CalcuPanel, BorderLayout.CENTER);
+
+     /*
+      * -------------------------- PROPIEDADES DE LA VENTANA ------------------------
+      */
+
+     setTitle("CALCULADORA");
+     setSize(500, 600);
+     setMinimumSize(new Dimension(400, 500));
+     setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+     add(mainPanel); // agrega mainPanel al JFrame
+     setVisible(true);
+
+ }
 
     
     //Se determina el metodo principal
@@ -128,7 +190,7 @@ public class Calculadora {
         
        
         Calculadora calculadora = new Calculadora();
-        calculadora.menu();
+        calculadora.iniciar();
 
          /*
         Al los metodos y variables ser private no static no se puede llamar directamente a ellas 
