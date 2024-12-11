@@ -1,6 +1,9 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.awt.event.*;
+
+
 
 public class Calculadora extends JFrame{
  /* Creacion de Objetos */
@@ -168,6 +171,23 @@ public class Calculadora extends JFrame{
 
      mainPanel.add(tfPantalla, BorderLayout.NORTH);
      mainPanel.add(CalcuPanel, BorderLayout.CENTER);
+
+      /* ---------------------- Listener para el cierre de la ventana ---------------- */
+
+         // Agrega un "escuchador" para eventos relacionados con la ventana, como su cierre.
+         addWindowListener(new WindowAdapter() {
+
+
+            @Override
+            /*  Sobrescribe el comportamiento predeterminado al cerrar la ventana. */
+            public void windowClosing(WindowEvent e){
+                JOptionPane.showMessageDialog(null,
+                "Gracias por utilizar la Calculadora Cuenta Pollos", 
+                "Adios", JOptionPane.INFORMATION_MESSAGE);
+
+                System.exit(0);
+            }
+        });
 
      /*
       * -------------------------- PROPIEDADES DE LA VENTANA ------------------------
