@@ -1,3 +1,15 @@
+/*
+*Nombre del programa: Calculadora
+*Nombre del grupo de Trabajo: Team Pollo
+*Nombre de los Programadores:
+*Caled Solís Vásquez
+*Jefferson Useda Monge
+*Sebastián Mora Alvarado
+*Fecha de la elaboración del programa: 23/11/2024
+*Versión del JAVA: 21.0.4
+*IDE utilizada: Visual Studio Code
+*/
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
